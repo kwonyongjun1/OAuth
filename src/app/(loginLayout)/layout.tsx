@@ -1,19 +1,25 @@
+"use client";
+
+import { useSession } from "next-auth/react";
+import { useEffect } from "react";
+
 const LoginLayout = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
+  const { data: session, status } = useSession();
+
+  useEffect(() => {
+    console.log("login layout");
+    console.log(session);
+    console.log(status);
+  }, []);
+
   return (
     <div
       style={{
-        boxSizing: "border-box",
-        display: "grid",
-        height: "100%",
-        margin: 0,
-        padding: 0,
-        placeItems: "center",
-        position: "absolute",
-        width: "100%",
+        backgroundColor: "#f9f9f9",
       }}
     >
       {children}

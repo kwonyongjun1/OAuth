@@ -1,3 +1,5 @@
+"use client";
+
 import useAuth from "../hooks/useAuth";
 
 const MainLayout = ({
@@ -6,11 +8,8 @@ const MainLayout = ({
   children: React.ReactNode;
 }>) => {
   useAuth();
-  return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
-  );
+
+  return <>{children}</>;
 };
 
 export default MainLayout;

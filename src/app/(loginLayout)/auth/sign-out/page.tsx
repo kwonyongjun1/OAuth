@@ -1,9 +1,10 @@
-const page = () => {
+const Page = () => {
   return (
     <div>
       <h1>Sign Out</h1>
+      로그아웃 됨
     </div>
   );
 };
 
-export default page;
+export default Page;

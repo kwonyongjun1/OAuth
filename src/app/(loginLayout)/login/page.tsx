@@ -1,51 +1,22 @@
 "use client";
+import { signIn } from "next-auth/react";
 
-import { signIn, signOut, useSession } from "next-auth/react";
-import { useState } from "react";
-
-export default function LoginPage() {
-  const { data: session } = useSession();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-
+const LoginPage = () => {
   const handleSignIn = async () => {
-    const result = await signIn("credentials", {
-      redirect: false,
-      username,
-      password,
-    });
+    signIn();
+  };
 
-    console.log(result);
-    if (result?.ok) {
-      window.location.href = "/";
-    }
+  const handleKakaoSignIn = async () => {
+    signIn("kakao");
   };
 
   return (
     <div>
-      <h1>Login</h1>
-      <div>
-        <div
-          style={{ display: "flex", flexDirection: "column", width: "300px" }}
-        >
-          <input
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            style={{ marginBottom: "10px" }}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            style={{ marginBottom: "10px" }}
-          />
-          <button onClick={handleSignIn}>Sign in</button>
-          <button onClick={() => signIn("kakao")}>Sign in with Kakao</button>
-        </div>
-      </div>
+      <h1>Login Page</h1>
+      <button onClick={handleSignIn}>Sign In</button>
+      <button onClick={handleKakaoSignIn}>KaKao Sign In</button>
     </div>
   );
-}
+};
+
+export default LoginPage;

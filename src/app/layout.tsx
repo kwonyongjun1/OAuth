@@ -2,7 +2,6 @@
 
 import "./globals.css";
 import { SessionProvider } from "next-auth/react";
-import useAuth from "./hooks/useAuth";
 
 export default function RootLayout({
   children,
@@ -10,7 +9,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html>
+    <html lang="ko">
       <body>
         <SessionProvider>{children}</SessionProvider>
       </body>
