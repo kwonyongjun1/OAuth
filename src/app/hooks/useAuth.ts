@@ -1,18 +1,16 @@
-"use client";
-import { signOut, useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 const useAuth = () => {
-  const { data, status } = useSession();
-
+  const { status } = useSession();
   useEffect(() => {
-    console.log("data :::", data);
-    console.log("status :::", status);
     if (status === "loading") return;
+
     if (status === "unauthenticated") {
-      signOut({ callbackUrl: "/login" });
+      signIn();
     }
-  }, [data, status]);
+  }, [status]);
 };
 
 export default useAuth;

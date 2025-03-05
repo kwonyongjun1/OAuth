@@ -1,5 +1,6 @@
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
+import KakaoProvider from "next-auth/providers/kakao";
 
 export const handler = NextAuth({
   providers: [
@@ -10,6 +11,7 @@ export const handler = NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
+        console.log(":::: authorize :::::");
         console.log("credentials :::", credentials);
         console.log("req :::", req);
 
@@ -28,12 +30,16 @@ export const handler = NextAuth({
         }
       },
     }),
+    KakaoProvider({
+      clientId: process.env.KAKAO_CLIENT_ID!,
+      clientSecret: process.env.KAKAO_CLIENT_SECRET!,
+    }),
   ],
   callbacks: {
     async session({ session, token }) {
       console.log(":::: session :::::");
       console.log("session :::", session);
-      console.log("token :::", session);
+      console.log("token :::", token);
       return session;
     },
     async jwt({ token, user }) {
@@ -43,19 +49,25 @@ export const handler = NextAuth({
 
       return token;
     },
-    async signIn({ user, account, profile, email, credentials }) {
-      console.log(":::: signIn :::::");
-      console.log("user :::", user);
-      console.log("account :::", account);
-      console.log("profile :::", profile);
+    // async signIn({ user, account, profile, email, credentials }) {
+    //   console.log(":::: signIn :::::");
+    //   console.log("user :::", user);
+    //   console.log("account :::", account);
+    //   console.log("profile :::", profile);
 
-      return true;
-    },
-    async redirect({ url, baseUrl }) {
-      console.log(":::: redirect :::::");
-      console.log("url :::", url);
-      console.log("url :::", baseUrl);
-      return url;
+    //   return user;
+    // },
+    // async redirect({ url, baseUrl }) {
+    //   console.log(":::: redirect :::::");
+    //   console.log("url :::", url);
+    //   console.log("url :::", baseUrl);
+    //   return url;
+    // },
+  },
+  events: {
+    async signOut(message) {
+      console.log(":::: signOut :::::");
+      console.log("message :::", message);
     },
   },
   session: {
@@ -63,6 +75,8 @@ export const handler = NextAuth({
     maxAge: 24 * 60 * 60,
   },
   pages: {
-    signOut: "/login",
+    signIn: `/auth/sign-in`,
+    signOut: `/auth/sign-out`,
   },
+  secret: process.env.NEXTAUTH_SECRET,
 });
