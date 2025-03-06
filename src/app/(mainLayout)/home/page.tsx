@@ -1,11 +1,7 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import styles from "../../page.module.css";
-import { signIn, signOut, useSession } from "next-auth/react";
-import Kakao from "next-auth/providers/kakao";
-
-const KAKAO_LOGOUT_URL = "https://kapi.kakao.com/v1/user/logout";
+import { signOut, useSession } from "next-auth/react";
 
 const Home = () => {
   const handleSignOut = async () => {

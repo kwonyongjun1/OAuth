@@ -5,12 +5,10 @@ import { useRouter } from "next/navigation";
 import {
   Container,
   Divider,
-  ForgotPassword,
   Form,
   FormBox,
   Input,
   LoginButton,
-  SignUpText,
   SocialLoginButton,
   SubText,
   Title,
@@ -25,7 +23,7 @@ const Page = () => {
     e.preventDefault();
     const result = await signIn("credentials", {
       redirect: false,
-      email,
+      username: email,
       password,
     });
 
