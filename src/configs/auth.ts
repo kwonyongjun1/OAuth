@@ -16,14 +16,13 @@ export const handler = NextAuth({
         console.log("req :::", req);
 
         //  add login logic
+        if (credentials?.username && credentials?.password) {
+          const user = {
+            id: "test",
+            name: "test",
+            email: "jsmith@example.com",
+          };
 
-        const user = {
-          id: credentials?.username!,
-          name: credentials?.username!,
-          email: "jsmith@example.com",
-        };
-
-        if (user) {
           return user;
         } else {
           return null;
@@ -49,20 +48,6 @@ export const handler = NextAuth({
 
       return token;
     },
-    // async signIn({ user, account, profile, email, credentials }) {
-    //   console.log(":::: signIn :::::");
-    //   console.log("user :::", user);
-    //   console.log("account :::", account);
-    //   console.log("profile :::", profile);
-
-    //   return user;
-    // },
-    // async redirect({ url, baseUrl }) {
-    //   console.log(":::: redirect :::::");
-    //   console.log("url :::", url);
-    //   console.log("url :::", baseUrl);
-    //   return url;
-    // },
   },
   events: {
     async signOut(message) {
