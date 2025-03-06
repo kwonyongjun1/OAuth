@@ -2,6 +2,7 @@
 
 import "./globals.css";
 import { SessionProvider } from "next-auth/react";
+import StyledComponentsRegistry from "@/lib/registry";
 
 export default function RootLayout({
   children,
@@ -11,7 +12,9 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
-        <SessionProvider>{children}</SessionProvider>
+        <StyledComponentsRegistry>
+          <SessionProvider>{children}</SessionProvider>
+        </StyledComponentsRegistry>
       </body>
     </html>
   );
